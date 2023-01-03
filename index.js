@@ -1,4 +1,5 @@
 let money = 0
+let fish = 1
 var updateValue = 1
 
 function displayMoney() {
@@ -7,10 +8,20 @@ output = nfObject.format(money);
 document.getElementById("currentMoney").innerHTML = "Money: " + output
 }
 
+function displayFish() {
+  document.getElementById("currentFish").innerHTML = "Fish: " + output
+}
+
 async function addMoney() {
   money += updateValue
   displayMoney()
   console.log(money)
+}
+
+async function addFish() {
+  fish += 1
+  displayFish()
+  console.log(fish)
 }
 
 async function printMoney() {
@@ -22,11 +33,12 @@ function buyFish() {
     console.log("Failed, Too much fish!")
   } else if (money >= 10) {
     money -= 10
+    fish += 1
     console.log("Bought Fish!")
     updateValue += 1
     displayMoney()
-  } else {
-    console.log("Failed, Not enough money!")
+    displayFish()
   }
   displayMoney()
+  displayFish()
 }
