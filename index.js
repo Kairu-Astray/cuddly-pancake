@@ -17,8 +17,8 @@ function displayFish() {
 
 function displayPrestige() {
   nfObject = new Intl.NumberFormat('en-GB');
-  output = nfObject.format(fish);
-  document.getElementById("currentOrestige").innerHTML = "Fish: " + output
+  output = nfObject.format(prestige);
+  document.getElementById("currentOrestige").innerHTML = "Prestige: " + output
 }
 
 async function addMoney() {
@@ -56,12 +56,14 @@ function buyPrestige() {
   if (fish < 100 || money < 10000) {
     console.log("Failed, You don't meet the requirements. (100 Fish, 10,000 Money)")
   } else if (fish >= 100 || money >= 10000) {
-    money == 0
-    fish == 0
+    money = 0
+    fish = 0
+    prestige += 1
     console.log("Prestiged!")
-    updateValue == 1
+    updateValue = 1
     displayMoney()
     displayFish()
+    displayPrestige()
   }
   displayMoney()
   displayFish()
