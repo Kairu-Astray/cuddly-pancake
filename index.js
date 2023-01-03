@@ -37,7 +37,7 @@ function buyFish() {
     console.log("Bought Fish!")
     updateValue += 1
     displayMoney()
-    displayFish()
+    addFish()
   }
   displayMoney()
   displayFish()
