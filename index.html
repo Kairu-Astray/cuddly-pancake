@@ -4,11 +4,21 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Pancake Clicker</title>
+    <script src="index.js"></script>
 </head>
 <body>
-    <div id="button1">
-        <button class="fish">Buy Fish</button>
+    <div class="button1">
+        <button onclick="addMoney()" class="click">Click</button>
+    </div>
+    <div class="money">
+        <p id="currentMoney">Money: 0</p>
+    </div>
+    <div class="button2">
+        <button onclick="buyFish()" class="fish">Buy Fish</button>
+    </div>
+    <div class="button3">
+        <button onclick="printMoney()" class="dev">print Money</button>
     </div>
 </body>
 </html>
