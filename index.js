@@ -1,5 +1,6 @@
 let money = 0
 let fish = 1
+let prestige = 0
 var updateValue = 1
 
 function displayMoney() {
@@ -12,6 +13,12 @@ function displayFish() {
   nfObject = new Intl.NumberFormat('en-GB');
   output = nfObject.format(fish);
   document.getElementById("currentFish").innerHTML = "Fish: " + output
+}
+
+function displayPrestige() {
+  nfObject = new Intl.NumberFormat('en-GB');
+  output = nfObject.format(fish);
+  document.getElementById("currentOrestige").innerHTML = "Fish: " + output
 }
 
 async function addMoney() {
@@ -31,7 +38,7 @@ async function printMoney() {
 }
 
 function buyFish() {
-  if (fish >= 10) {
+  if (fish >= 100) {
     console.log("Failed, Too much fish!")
   } else if (money >= 10) {
     money -= 10
@@ -44,3 +51,19 @@ function buyFish() {
   displayMoney()
   displayFish()
 }
+
+function buyPrestige() {
+  if (fish < 100 || money < 10000) {
+    console.log("Failed, You don't meet the requirements. (100 Fish, 10,000 Money)")
+  } else if (fish >= 100 || money >= 10000) {
+    money == 0
+    fish == 0
+    console.log("Prestiged!")
+    updateValue == 1
+    displayMoney()
+    displayFish()
+  }
+  displayMoney()
+  displayFish()
+}
+
