@@ -2,12 +2,14 @@ let money = 0
 var updateValue = 1
 
 function displayMoney() {
-  document.getElementById("currentMoney").innerHTML = "Money: " + money
+nfObject = new Intl.NumberFormat('en-GB');
+output = nfObject.format(money);
+document.getElementById("currentMoney").innerHTML = "Money: " + output
 }
 
 async function addMoney() {
   money += updateValue
-  document.getElementById("currentMoney").innerHTML = "Money: " + money
+  displayMoney()
   console.log(money)
 }
 

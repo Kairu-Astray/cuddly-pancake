@@ -20,3 +20,11 @@
     box-shadow: 0 5px #666;
     transform: translateY(4px);
   }
+
+.money {
+    text-align: left;
+    text-decoration: none;
+    font-family: 'Courier New', Courier, monospace;
+    outline: none;
+    color: rgb(0, 0, 0);
+}
