@@ -46,20 +46,17 @@ async function printMoney() {
 
 function buyFish() {
   if (fish >= 100) {
-    console.log("Failed, Too much fish!");
+    alert("Failed, Too much fish!");
   } else if (money >= 10) {
     money -= 10;
     fish += 1;
-    console.log("Bought Fish!");
     updateValue += 1;
   }
 }
 
 function buyPrestige() {
   if (fish < 100 || money < 10000) {
-    console.log(
-      "Failed, You don't meet the requirements. (100 Fish, 10,000 Money)"
-    );
+    alert("Failed, You don't meet the requirements. (100 Fish, 10,000 Money)");
   } else if (fish >= 100 || money >= 10000) {
     money = 0;
     fish = 0;
@@ -73,8 +70,11 @@ function buyMoneyPS() {
   if (money >= price) {
     moneyPS += 0.5;
     money -= price;
+    if (price >= 100) {
+      price += 50
+    } else {
     price += 20
-  } else {
+  }} else {
     alert("Sorry, you don't have enough money.");
   }
   setInterval(function coinPS() {
