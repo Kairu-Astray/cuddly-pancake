@@ -1,29 +1,36 @@
 let money = 0;
-let fish = 1;
+let moneyPS = 0;
+let price = 10;
+let fish = 0;
 let prestige = 0;
 var updateValue = 1;
 
-function displayMoney() {
+setInterval (function displayMoney() {
   nfObject = new Intl.NumberFormat("en-GB");
   output = nfObject.format(money);
   document.getElementById("currentMoney").innerHTML = "Money: " + output;
-}
+})
 
-function displayFish() {
+setInterval (function displayMoneyPS() {
+  nfObject = new Intl.NumberFormat("en-GB");
+  output = nfObject.format(moneyPS);
+  document.getElementById("currentMoneyPS").innerHTML = "Money PS: " + output;
+})
+
+setInterval (function displayFish() {
   nfObject = new Intl.NumberFormat("en-GB");
   output = nfObject.format(fish);
   document.getElementById("currentFish").innerHTML = "Fish: " + output;
-}
+})
 
-function displayPrestige() {
+setInterval (function displayPrestige() {
   nfObject = new Intl.NumberFormat("en-GB");
   output = nfObject.format(prestige);
-  document.getElementById("currentOrestige").innerHTML = "Prestige: " + output;
-}
+  document.getElementById("currentPrestige").innerHTML = "Prestige: " + output;
+})
 
 async function addMoney() {
   money += updateValue;
-  displayMoney();
   console.log(money);
 }
 
@@ -45,11 +52,7 @@ function buyFish() {
     fish += 1;
     console.log("Bought Fish!");
     updateValue += 1;
-    displayMoney();
-    displayFish();
   }
-  displayMoney();
-  displayFish();
 }
 
 function buyPrestige() {
@@ -63,10 +66,18 @@ function buyPrestige() {
     prestige += 1;
     console.log("Prestiged!");
     updateValue = 1;
-    displayMoney();
-    displayFish();
-    displayPrestige();
   }
-  displayMoney();
-  displayFish();
+}
+
+function buyMoneyPS() {
+  if (money >= price) {
+    moneyPS += 0.5;
+    money -= price;
+    price += 20
+  } else {
+    alert("Sorry, you don't have enough money.");
+  }
+  setInterval(function coinPS() {
+    money += moneyPS;
+  }, 1000);
 }
