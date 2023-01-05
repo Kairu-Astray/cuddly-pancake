@@ -5,29 +5,53 @@ let fish = 0;
 let prestige = 0;
 var updateValue = 1;
 
-setInterval (function displayMoney() {
+function cSetInterval(func, time){
+  var lastTime = Date.now(),
+      lastDelay = time,
+      outp = {};
+  
+  function tick(){
+      func();
+
+      var now = Date.now(),
+          dTime = now - lastTime;
+
+      lastTime = now;
+      lastDelay = time + lastDelay - dTime;
+      outp.id = setTimeout(tick, lastDelay);
+  }
+  outp.id = setTimeout(tick, time);
+
+  return outp;
+}
+
+function displayMoney() {
   nfObject = new Intl.NumberFormat("en-GB");
   output = nfObject.format(money);
   document.getElementById("currentMoney").innerHTML = "Money: " + output;
-})
+}
+cSetInterval(displayMoney, 1)
 
-setInterval (function displayMoneyPS() {
+function displayMoneyPS() {
   nfObject = new Intl.NumberFormat("en-GB");
   output = nfObject.format(moneyPS);
   document.getElementById("currentMoneyPS").innerHTML = "Money PS: " + output;
-})
+}
+cSetInterval(displayMoneyPS, 1)
 
-setInterval (function displayFish() {
+function displayFish() {
   nfObject = new Intl.NumberFormat("en-GB");
   output = nfObject.format(fish);
   document.getElementById("currentFish").innerHTML = "Fish: " + output;
-})
+}
+cSetInterval(displayFish, 1)
 
-setInterval (function displayPrestige() {
+function displayPrestige() {
   nfObject = new Intl.NumberFormat("en-GB");
   output = nfObject.format(prestige);
   document.getElementById("currentPrestige").innerHTML = "Prestige: " + output;
-})
+}
+cSetInterval(displayPrestige, 1)
 
 async function addMoney() {
   money += updateValue;
@@ -70,6 +94,10 @@ function buyPrestige() {
   }
 }
 
+function coinPS() {
+  money += moneyPS;
+}
+
 function buyMoneyPS() {
   if (money >= price) {
     moneyPS += 0.5;
@@ -81,7 +109,5 @@ function buyMoneyPS() {
   }} else {
     alert("Sorry, you don't have enough money.");
   }
-  setInterval(function coinPS() {
-    money += moneyPS;
-  }, 1_000);
+  cSetInterval(coinPS, 1000)
 }
