@@ -1,111 +1,270 @@
-let money = 0;
-let moneyPS = 0;
-let price = 10;
-let fish = 0;
-let prestige = 0;
-var updateValue = 1;
+money = 0;
+moneyup = 1;
+msec = 0;
+upcost = 15;
+catcost = 25;
+catchefcost = 100;
+workercost = 250;
+upown = 0;
+catown = 0;
+catchefown = 0
+workerown = 0;
+catadd = 1;
+catchefadd = 4;
+workadd = 15;
+cboost = 1;
+ccboost = 1;
+wboost = 1;
+catmax = 0;
+workmax = 0;
 
-function cSetInterval(func, time){
-  var lastTime = Date.now(),
-      lastDelay = time,
-      outp = {};
-  
-  function tick(){
-      func();
-      var now = Date.now(),
-          dTime = now - lastTime;
-      lastTime = now;
-      lastDelay = time + lastDelay - dTime;
-      outp.id = setTimeout(tick, lastDelay);
-  }
-  outp.id = setTimeout(tick, time);
-
-  return outp;
-}
-
-function displayMoney() {
-  nfObject = new Intl.NumberFormat("en-GB");
-  output = nfObject.format(money);
-  document.getElementById("currentMoney").innerHTML = "Money: " + output;
-}
-cSetInterval(displayMoney, 1)
-
-function displayMoneyPS() {
-  nfObject = new Intl.NumberFormat("en-GB");
-  output = nfObject.format(moneyPS);
-  document.getElementById("currentMoneyPS").innerHTML = "Money PS: " + output;
-}
-cSetInterval(displayMoneyPS, 1)
-
-function displayFish() {
-  nfObject = new Intl.NumberFormat("en-GB");
-  output = nfObject.format(fish);
-  document.getElementById("currentFish").innerHTML = "Fish: " + output;
-}
-cSetInterval(displayFish, 1)
-
-function displayPrestige() {
-  nfObject = new Intl.NumberFormat("en-GB");
-  output = nfObject.format(prestige);
-  document.getElementById("currentPrestige").innerHTML = "Prestige: " + output;
-}
-cSetInterval(displayPrestige, 1)
-
-async function addMoney() {
-  money += updateValue;
-  console.log(money);
-}
-
-// async function addFish() {     --- DEV command
-//   fish += 1
-//   displayFish()
-//   console.log(fish)
-// }
-
-async function printMoney() {
-  console.log(money);
-}
-
-function buyFish() {
-  if (fish >= 100) {
-    alert("Failed, Too much fish!");
-  } else if (money >= 10 && updateValue < 2) {
-    money -= 10;
-    fish += 1;
-    updateValue += 1;
-  } else if (money >= 10 || updateValue == 2) {
-    money -= 10;
-    fish += 1;
-    updateValue += 2;
+//save before exiting
+function closingCode() {
+  if (confirm("You have closed the window, would you like to save?") === true) {
+    save();
+    return null;
   }
 }
 
-function buyPrestige() {
-  if (fish < 100 || money < 10000) {
-    alert("Failed, You don't meet the requirements. (100 Fish, 100,000 Money)");
-  } else if (fish >= 100 || money >= 100_000) {
+function addcomma(x) {
+  return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+}
+//updates all values
+function reloadall() {
+  document.getElementById("click").innerHTML =
+    "PP/click: " + addcomma(moneyup) + " | PP/sec: " + addcomma(msec);
+  document.getElementById("total").innerHTML = "Pancake Points: " + addcomma(money);
+  document.getElementById("cat").innerHTML =
+    catown + " clicker cat: " + addcomma(catcost) + " | +" + addcomma(catadd) + "/sec";
+  document.getElementById("worker").innerHTML =
+    workerown + " worker: " + addcomma(workercost) + " | +" + addcomma(workadd) + "/sec";
+  document.getElementById("upgrade").innerHTML =
+    addcomma(upown) + " main upgrade: " + addcomma(upcost);
+}
+//overwrites save file
+function save() {
+  localStorage.setItem("money", money);
+  localStorage.setItem("moneyup", moneyup);
+  localStorage.setItem("msec", msec);
+  localStorage.setItem("upcost", upcost);
+  localStorage.setItem("catcost", catcost);
+  localStorage.setItem("catadd", catadd);
+  localStorage.setItem("workercost", workercost);
+  localStorage.setItem("workadd", workadd);
+  localStorage.setItem("catown", catown);
+  localStorage.setItem("workerown", workerown);
+  localStorage.setItem("upown", upown);
+  localStorage.setItem("catadd", catadd);
+  localStorage.setItem("workadd", workadd);
+  localStorage.setItem("cboost", cboost);
+  localStorage.setItem("wboost", wboost);
+  localStorage.setItem("catmax", catmax);
+  localStorage.setItem("workmax", workmax);
+}
+//loads save file
+function load() {
+  money = parseInt(localStorage.getItem("money"));
+  moneyup = parseInt(localStorage.getItem("moneyup"));
+  msec = parseInt(localStorage.getItem("msec"));
+  upcost = parseInt(localStorage.getItem("upcost"));
+  catcost = parseInt(localStorage.getItem("catcost"));
+  upown = parseInt(localStorage.getItem("catadd"));
+  workercost = parseInt(localStorage.getItem("workercost"));
+  upown = parseInt(localStorage.getItem("workadd"));
+  catown = parseInt(localStorage.getItem("catown"));
+  workerown = parseInt(localStorage.getItem("workerown"));
+  upown = parseInt(localStorage.getItem("upown"));
+  catadd = parseInt(localStorage.getItem("catadd"));
+  workadd = parseInt(localStorage.getItem("workadd"));
+  cboost = parseInt(localStorage.getItem("cboost"));
+  wboost = parseInt(localStorage.getItem("wboost"));
+  catmax = parseInt(localStorage.getItem("catmax"));
+  workmax = parseInt(localStorage.getItem("workmax"));
+
+  reloadall();
+}
+//resets all values
+function reset() {
+  if (confirm("Are you sure you want to reset?") === true) {
     money = 0;
-    fish = 0;
-    prestige += 1;
-    console.log("Prestiged!");
-    updateValue = 1;
+    moneyup = 1;
+    msec = 0;
+    upcost = 15;
+    catcost = 25;
+    workercost = 250;
+    catown = 0;
+    workerown = 0;
+    upown = 0;
+    catadd = 1;
+    workadd = 15;
+    reloadall();
   }
 }
-
-function coinPS() {
-  money += moneyPS;
+//timer
+function myTimer() {
+    money += msec;
+  document.getElementById("total").innerHTML = "Pancake Points: " + addcomma(money);
 }
+setInterval(myTimer, 1000);
 
-function buyMoneyPS() {
-  if (money >= price) {
-    moneyPS += 0.5;
-    money -= price;
-    if (price >= 100) {
-      price += 50
-    } else {
-    price += 20
-  }} else {
-    alert("Sorry, you don't have enough money.");
+//what happens when button is clicked
+function clicked() {
+  money += moneyup;
+  document.getElementById("total").innerHTML = "Pancake Points: " + addcomma(money);
+}
+//upgrade function
+function upgrade(name) {
+  if (name == "clicker cat") {
+    if (money >= catcost && catown < 50) {
+      
+      if (catown <= 13) {
+        msec += catadd;
+        catadd++;
+        cboost = 1;
+      } else if (catown == 14) {
+        msec += catadd;
+        catadd++;
+        cboost = 200;
+      } else if (catown <= 23) {
+        msec += 200 * catadd;
+        catadd++;
+        cboost = 200;
+      } else if (catown == 24) {
+        msec += 200 * catadd;
+        catadd++;
+        cboost = 5000;
+      } else if (catown <= 48) {
+        msec += 5000 * catadd;
+        catadd++;
+        cboost = 5000;
+      } else if (catown == 49) {
+        msec += 5000 * catadd;
+        catadd++;
+        cboost = 15000;
+      } else {
+        msec += 15000 * catadd;
+        catadd++;
+        cboost = 15000;
+      }
+      catown += 1;
+      money -= catcost;
+      catcost = catcost * 2;
+      document.getElementById("cat").innerHTML =
+        catown + " clicker cat: " + addcomma(catcost) + " | +" + addcomma(catadd * cboost) + "/sec";
+    } else if (catown == 50) {
+      document.getElementById("cat").innerHTML =
+        catown + " clicker cat: MAX | +15% PP/sec";
+    }
   }
-  cSetInterval(coinPS, 1000)
+
+  if (name == "worker") {
+    if (money >= workercost && workerown < 50) {
+      
+      if (workerown <= 13) {
+        msec += workadd;
+        workadd++;
+        wboost = 1;
+      } else if (workerown == 14) {
+        msec += workadd;
+        workadd++;
+        wboost = 200;
+      } else if (workerown <= 23) {
+        msec += 200 * workadd;
+        workadd++;
+        wboost = 200;
+      } else if (workerown == 24) {
+        msec += 200 * workadd;
+        workadd++;
+        wboost = 5000;
+      } else if (workerown <= 48) {
+        msec += 5000 * workadd;
+        workadd++;
+        wboost = 5000;
+      } else if (workerown == 49) {
+        msec += 5000 * workadd;
+        workadd++;
+        wboost = 15000;
+      } else {
+        msec += 15000 * workadd;
+        workadd++;
+        wboost = 15000;
+      }
+      workerown += 1;
+      money -= workercost;
+      workercost = workercost * 3;
+      document.getElementById("worker").innerHTML = 
+        workerown + " worker: " + addcomma(workercost) + " | +" + addcomma(workadd * wboost) + "/sec";
+    } else if (workerown == 50) {
+      document.getElementById("worker").innerHTML =
+        workerown + " worker: MAX | +35% PP/sec";
+    }
+  }
+
+  if (name == "cat chef") {
+    if (money >= catchefcost && catchefown < 50) {
+      
+      if (catchefown <= 13) {
+        msec += catchefadd;
+        catchefadd++;
+        ccboost = 1;
+      } else if (catchefown == 14) {
+        msec += catchefadd;
+        catchefadd++;
+        ccboost = 200;
+      } else if (catchefown <= 23) {
+        msec += 200 * catchefadd;
+        catchefadd++;
+        ccboost = 200;
+      } else if (catchefown == 24) {
+        msec += 200 * catchefadd;
+        catchefadd++;
+        ccboost = 5000;
+      } else if (catchefown <= 48) {
+        msec += 5000 * catchefadd;
+        catchefadd++;
+        ccboost = 5000;
+      } else if (catchefown == 49) {
+        msec += 5000 * catchefadd;
+        catchefadd++;
+        ccboost = 15000;
+      } else {
+        msec += 15000 * catchefadd;
+        catchefadd++;
+        ccboost = 15000;
+      }
+      catchefown += 1;
+      money -= catchefcost;
+      catchefcost = catchefcost * 2;
+      document.getElementById("cat chef").innerHTML =
+        catchefown + " cat chef: " + addcomma(catchefcost) + " | +" + addcomma(catchefadd * ccboost) + "/sec";
+    } else if (catchefown == 50) {
+      document.getElementById("cat chef").innerHTML =
+        catchefown + " cat chef: MAX | +25% PP/sec";
+    }
+  }
+
+  if (name == "upgrade") {
+    if (money >= upcost) {
+      moneyup += upcost / 15;
+      money -= upcost;
+      upown += 1;
+      upcost = upcost * 5;
+      document.getElementById("upgrade").innerHTML =
+        addcomma(upown) + " main upgrade: " + addcomma(upcost);
+      if (catown == 50) {
+        msec -= catmax;
+        catmax = Math.floor(moneyup * 0.15);
+        msec += catmax;
+      }
+      if (workerown == 50) {
+        msec -= workmax;
+        workmax = Math.floor(moneyup * 0.35);
+        msec += workmax;
+      }
+    }
+  }
+
+  document.getElementById("click").innerHTML =
+    "PP/click: " + addcomma(moneyup) + " | PP/sec: " + addcomma(msec);
+  document.getElementById("total").innerHTML = "Pancake Points: " + addcomma(money);
 }

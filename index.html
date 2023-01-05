@@ -1,34 +1,32 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pancake Clicker</title>
+<html>
+<title>Clicker Clicker</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+<body onbeforeunload="return closingCode()">
+  <link rel="stylesheet" href="index.css">
     <script src="index.js"></script>
-    <link rel="stylesheet" href="main.css">
-</head>
-<body>
-    <div class="buttons">
-        <div class="clickButton">
-            <button style="background: url(assets/pancake.png)"onclick="addMoney()" class="button1"></button>
-        </div>
-        <div class="money">
-            <p id="currentMoney">Money: 0</p>
-        </div>
-        <div class="upgrades">
-            <p id="currentMoneyPS">Money PS: 0</p>
-            <p id="currentFish">Fish: 0</p>
-            <p id="currentPrestige">Prestiges: 0</p>
-        </div>
-        <div class="button2">
-            <button onclick="buyFish()" class="fish">Buy Fish</button>
-        </div>
-        <div class="button3">
-            <button onclick="buyMoneyPS()" class="moneyPS">Buy AutoCooker</button>
-        </div>
-        <div class="button4">
-            <button onclick="buyPrestige()" class="prestige">Prestige</button>
-        </div>
-    </div>
+    <script src="config/firebase.js"></script>
+  <div class='topbar'>
+    <a href='http://leemlam.github.io'>Credits</a>
+  </div>
+    <center class='center'>
+      <h1 id='total'>Pancake Points: 0</h1>
+      <h5 id="click" style="font-family:trebuchet MS;">PP/click: 1 | PP/sec: 0</h5>
+      <img class="round" src="assets/pancake.png" width="150" onclick='clicked()'></img>
+      <br><br>
+      <button id='upgrade' class="round" onclick='upgrade("upgrade")' style="font-family:courier;">0-main upgrade: 15</button>
+      <br><br>
+      <button id='cat' class="round" onclick='upgrade("clicker cat")' style="font-family:courier;">0-clicker cat: 25 | +1/sec</button>
+      <br><br>
+      <button id='cat chef' class="round" onclick='upgrade("cat chef")' style="font-family:courier;">0 cat chef: 100 | +1/sec</button>
+      <br><br>
+      <button id='worker' class="round" onclick='upgrade("worker")' style="font-family:courier;">0-worker: 250 | +15/sec</button><br><br>
+      <button class="settings" onclick="save()">Save</button>
+      <button class="settings" onclick="load()">Load</button>
+      <button class="settings" onclick="reset()">Reset</button><br><br>
+    </center>
+  </link>
 </body>
+</meta>
+
+</html>
