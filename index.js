@@ -5,20 +5,20 @@ let fish = 0;
 let prestige = 0;
 var updateValue = 1;
 
-function cSetInterval(func, time) {
+function cSetInterval(func, time){
   var lastTime = Date.now(),
-    lastDelay = time,
-    outp = {};
+      lastDelay = time,
+      outp = {};
+  
+  function tick(){
+      func();
 
-  function tick() {
-    func();
+      var now = Date.now(),
+          dTime = now - lastTime;
 
-    var now = Date.now(),
-      dTime = now - lastTime;
-
-    lastTime = now;
-    lastDelay = time + lastDelay - dTime;
-    outp.id = setTimeout(tick, lastDelay);
+      lastTime = now;
+      lastDelay = time + lastDelay - dTime;
+      outp.id = setTimeout(tick, lastDelay);
   }
   outp.id = setTimeout(tick, time);
 
@@ -26,30 +26,36 @@ function cSetInterval(func, time) {
 }
 
 function displayMoney() {
-nfObject = new Intl.NumberFormat('en-GB');
-output = nfObject.format(money);
-document.getElementById("currentMoney").innerHTML = "Money: " + output
+  nfObject = new Intl.NumberFormat("en-GB");
+  output = nfObject.format(money);
+  document.getElementById("currentMoney").innerHTML = "Money: " + output;
 }
-cSetInterval(displayMoneyPS, 1);
+cSetInterval(displayMoney, 1)
+
+function displayMoneyPS() {
+  nfObject = new Intl.NumberFormat("en-GB");
+  output = nfObject.format(moneyPS);
+  document.getElementById("currentMoneyPS").innerHTML = "Money PS: " + output;
+}
+cSetInterval(displayMoneyPS, 1)
 
 function displayFish() {
   nfObject = new Intl.NumberFormat("en-GB");
   output = nfObject.format(fish);
   document.getElementById("currentFish").innerHTML = "Fish: " + output;
 }
-cSetInterval(displayFish, 1);
+cSetInterval(displayFish, 1)
 
 function displayPrestige() {
   nfObject = new Intl.NumberFormat("en-GB");
   output = nfObject.format(prestige);
-  document.getElementById("currentOrestige").innerHTML = "Prestige: " + output
+  document.getElementById("currentPrestige").innerHTML = "Prestige: " + output;
 }
-cSetInterval(displayPrestige, 1);
+cSetInterval(displayPrestige, 1)
 
 async function addMoney() {
-  money += updateValue
-  displayMoney()
-  console.log(money)
+  money += updateValue;
+  console.log(money);
 }
 
 // async function addFish() {     --- DEV command
@@ -64,33 +70,44 @@ async function printMoney() {
 
 function buyFish() {
   if (fish >= 100) {
-    console.log("Failed, Too much fish!")
-  } else if (money >= 10) {
-    money -= 10
-    fish += 1
-    console.log("Bought Fish!")
-    updateValue += 1
-    displayMoney()
-    displayFish()
+    alert("Failed, Too much fish!");
+  } else if (money >= 10 && updateValue < 2) {
+    money -= 10;
+    fish += 1;
+    updateValue += 1;
+  } else if (money >= 10 || updateValue == 2) {
+    money -= 10;
+    fish += 1;
+    updateValue += 2;
   }
-  displayMoney()
-  displayFish()
 }
 
 function buyPrestige() {
   if (fish < 100 || money < 10000) {
-    console.log("Failed, You don't meet the requirements. (100 Fish, 10,000 Money)")
-  } else if (fish >= 100 || money >= 10000) {
-    money = 0
-    fish = 0
-    prestige += 1
-    console.log("Prestiged!")
-    updateValue = 1
-    displayMoney()
-    displayFish()
-    displayPrestige()
+    alert("Failed, You don't meet the requirements. (100 Fish, 100,000 Money)");
+  } else if (fish >= 100 || money >= 100_000) {
+    money = 0;
+    fish = 0;
+    prestige += 1;
+    console.log("Prestiged!");
+    updateValue = 1;
   }
-  displayMoney()
-  displayFish()
 }
 
+function coinPS() {
+  money += moneyPS;
+}
+
+function buyMoneyPS() {
+  if (money >= price) {
+    moneyPS += 0.5;
+    money -= price;
+    if (price >= 100) {
+      price += 50
+    } else {
+    price += 20
+  }} else {
+    alert("Sorry, you don't have enough money.");
+  }
+  cSetInterval(coinPS, 1000)
+}
