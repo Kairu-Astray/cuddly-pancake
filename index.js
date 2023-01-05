@@ -5,20 +5,20 @@ let fish = 0;
 let prestige = 0;
 var updateValue = 1;
 
-function cSetInterval(func, time){
+function cSetInterval(func, time) {
   var lastTime = Date.now(),
-      lastDelay = time,
-      outp = {};
-  
-  function tick(){
-      func();
+    lastDelay = time,
+    outp = {};
 
-      var now = Date.now(),
-          dTime = now - lastTime;
+  function tick() {
+    func();
 
-      lastTime = now;
-      lastDelay = time + lastDelay - dTime;
-      outp.id = setTimeout(tick, lastDelay);
+    var now = Date.now(),
+      dTime = now - lastTime;
+
+    lastTime = now;
+    lastDelay = time + lastDelay - dTime;
+    outp.id = setTimeout(tick, lastDelay);
   }
   outp.id = setTimeout(tick, time);
 
@@ -30,28 +30,28 @@ function displayMoney() {
   output = nfObject.format(money);
   document.getElementById("currentMoney").innerHTML = "Money: " + output;
 }
-cSetInterval(displayMoney, 1)
+cSetInterval(displayMoney, 1);
 
 function displayMoneyPS() {
   nfObject = new Intl.NumberFormat("en-GB");
   output = nfObject.format(moneyPS);
   document.getElementById("currentMoneyPS").innerHTML = "Money PS: " + output;
 }
-cSetInterval(displayMoneyPS, 1)
+cSetInterval(displayMoneyPS, 1);
 
 function displayFish() {
   nfObject = new Intl.NumberFormat("en-GB");
   output = nfObject.format(fish);
   document.getElementById("currentFish").innerHTML = "Fish: " + output;
 }
-cSetInterval(displayFish, 1)
+cSetInterval(displayFish, 1);
 
 function displayPrestige() {
   nfObject = new Intl.NumberFormat("en-GB");
   output = nfObject.format(prestige);
   document.getElementById("currentPrestige").innerHTML = "Prestige: " + output;
 }
-cSetInterval(displayPrestige, 1)
+cSetInterval(displayPrestige, 1);
 
 async function addMoney() {
   money += updateValue;
@@ -103,11 +103,12 @@ function buyMoneyPS() {
     moneyPS += 0.5;
     money -= price;
     if (price >= 100) {
-      price += 50
+      price += 50;
     } else {
-    price += 20
-  }} else {
+      price += 20;
+    }
+  } else {
     alert("Sorry, you don't have enough money.");
   }
-  cSetInterval(coinPS, 1000)
+  cSetInterval(coinPS, 1000);
 }
