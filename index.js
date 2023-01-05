@@ -12,10 +12,8 @@ function cSetInterval(func, time){
   
   function tick(){
       func();
-
       var now = Date.now(),
           dTime = now - lastTime;
-
       lastTime = now;
       lastDelay = time + lastDelay - dTime;
       outp.id = setTimeout(tick, lastDelay);
