@@ -1,3 +1,4 @@
+//works by having msec updating the score, every upgrade adds to msec or the click
 money = 0;
 moneyup = 1;
 msec = 0;
