@@ -1,6 +1,5 @@
 configs/*
 assets/*
-original/*
 node_modules/*
 package.json
 package-lock.json
