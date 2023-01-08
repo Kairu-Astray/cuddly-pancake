@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pancake Clicker</title>
+    <script src="index.js"></script>
+    <link rel="stylesheet" href="main.css">
+</head>
+<body>
+    <div class="buttons">
+        <div class="clickButton">
+            <button style="background: url(../assets/pancake.png)"onclick="addMoney()" class="button1"></button>
+        </div>
+        <div class="money">
+            <p id="currentMoney">Money: 0</p>
+        </div>
+        <div class="upgrades">
+            <div class="currentMoneyPS">
+                <p id="currentMoneyPS">Money PS: 0</p>
+            </div>
+            <div class="currentFish">
+                <p id="currentFish">Fish: 0</p>
+            </div>
+            <div class="currentPrestige"></div>
+                <p id="currentPrestige">Prestiges: 0</p>
+            </div>
+        </div>
+        <div class="button2">
+            <button onclick="buyFish()" class="fish">Buy Fish</button>
+        </div>
+        <div class="button3">
+            <button onclick="buyMoneyPS()" class="moneyPS">Buy AutoCooker</button>
+        </div>
+        <div class="button4">
+            <button onclick="buyPrestige()" class="prestige">Prestige</button>
+        </div>
+    </div>
+</body>
