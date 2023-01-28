@@ -1,4 +1,5 @@
 //works by having msec updating the score, every upgrade adds to msec or the click
+//immad2010 is a fortnite kid
 money = 0;
 moneyup = 1;
 msec = 0;
